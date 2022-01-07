@@ -1,7 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "mono-sentry": "apps/mono-sentry",
-    "mono-sentry-e2e": "apps/mono-sentry-e2e"
+    "common": "libs/common",
+    "project-a": "apps/project-a",
+    "project-b": "apps/project-b"
   }
 }
