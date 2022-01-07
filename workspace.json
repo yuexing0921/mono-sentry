@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "mono-sentry": "apps/mono-sentry",
+    "mono-sentry-e2e": "apps/mono-sentry-e2e"
+  }
+}
