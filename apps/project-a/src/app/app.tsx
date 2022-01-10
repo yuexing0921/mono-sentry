@@ -1,12 +1,10 @@
 import styles from './app.module.less';
-import NxWelcome from './nx-welcome';
 
 import { Route, Link } from 'react-router-dom';
 
 export function App() {
   return (
     <>
-      <NxWelcome title="project-a" />
       <div />
 
       {/* START: routes */}

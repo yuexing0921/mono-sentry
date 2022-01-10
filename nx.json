@@ -43,6 +43,12 @@
         "style": "less",
         "linter": "eslint"
       }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "less",
+        "linter": "eslint"
+      }
     }
   },
   "defaultProject": "project-a"

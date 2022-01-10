@@ -11,7 +11,7 @@
         "compiler": "babel",
         "outputPath": "dist/apps/project-a",
         "index": "apps/project-a/src/index.html",
-        "baseHref": "/",
+        "baseHref": "/project-a/",
         "main": "apps/project-a/src/main.tsx",
         "polyfills": "apps/project-a/src/polyfills.ts",
         "tsConfig": "apps/project-a/tsconfig.app.json",
@@ -33,7 +33,7 @@
           ],
           "optimization": true,
           "outputHashing": "all",
-          "sourceMap": false,
+          "sourceMap": true,
           "namedChunks": false,
           "extractLicenses": true,
           "vendorChunk": false
