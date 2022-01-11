@@ -11,25 +11,20 @@ function initReleaseInfo(projectList) {
     const len = projectList.length;
     const config = {};
     for (let i = 0; i < len; i++) {
-      config[projectList[i]] = {
-        production: '',
-        test: '',
-      };
+      config[projectList[i]] = '';
     }
     return config;
   }
 }
 
-// node script/genBuildRelease.js -e [test|production(default)] -p xxx
+// node script/genBuildRelease.js -p xxx
 async function main() {
   const list = await fe.readdir(resolve('../apps'));
 
-  const { p: project, e: env } = parseArgs();
+  const { p: project } = parseArgs();
   // check
   if (!project) {
-    console.error(
-      'Please enter node script/genBuildRelease.js -e [test|production(default)] -p xxx'
-    );
+    console.error('Please enter node script/genBuildRelease.js  -p xxx');
     return process.exit(0);
   }
   if (!list.find((k) => k === project)) {
@@ -39,7 +34,7 @@ async function main() {
 
   const releaseInfo = initReleaseInfo(list);
 
-  releaseInfo[project][env] = {
+  releaseInfo[project] = {
     // 用于生成每次release的版本号
     release: project + ':' + day().format('YYYY-MM-DD HH:mm'),
   };
@@ -48,7 +43,7 @@ async function main() {
   fe.writeFileSync(configPath, jsonData, { encoding: 'utf8' });
 
   console.log(
-    `${env}:${releaseInfo[project][env].release} write ${configPath} successfully \n`
+    `${releaseInfo[project].release} write ${configPath} successfully \n`
   );
 }
 

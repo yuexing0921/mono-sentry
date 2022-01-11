@@ -5,9 +5,8 @@ init:
 	yarn
 
 build:
-	node script/genBuildRelease.js -e $(ENV) -p $(APP)
-	nx run $(APP):build:$(ENV) --skip-nx-cache
-	node script/uploadSourceMap.js -e $(ENV) -p $(APP)
-	rm -rf dist/apps/$(APP)/**/*.map
-	rm -rf dist/apps/$(APP)/.next/**/**/*.map
+	node script/genBuildRelease.js -p $(APP)
+	nx run $(APP):build:production --skip-nx-cache
+	node script/uploadSourceMap.js -p $(APP)
+	rm -rf dist/apps/$(APP)/*.map
 

@@ -5,13 +5,13 @@ const configPath = resolve('../node_modules/.cache/.release.json');
 const buildInfo = require(configPath);
 
 async function main() {
-  const { p: project, e: env } = parseArgs();
+  const { p: project } = parseArgs();
   const configFile = resolve('./sentry.properties');
   try {
     console.log('Upload source map...');
     const cli = new SentryCli(configFile, { silent: false });
 
-    const release = buildInfo[project][env].release;
+    const release = buildInfo[project].release;
 
     await cli.releases.new(release, { ...cli.releases.options, configFile });
 
@@ -23,7 +23,8 @@ async function main() {
       ext: ['js', 'map'],
       ignore: ['node_modules'],
       include: [`dist/apps/${project}`],
-      urlPrefix: `~${project}/`,
+      // 不同项目有不同的路径，对应的就是各自项目代码的
+      urlPrefix: `~/${project}/`,
     });
 
     console.log('Uploaded successfully');

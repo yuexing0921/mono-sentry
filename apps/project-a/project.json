@@ -15,10 +15,7 @@
         "main": "apps/project-a/src/main.tsx",
         "polyfills": "apps/project-a/src/polyfills.ts",
         "tsConfig": "apps/project-a/tsconfig.app.json",
-        "assets": [
-          "apps/project-a/src/favicon.ico",
-          "apps/project-a/src/assets"
-        ],
+        "assets": ["apps/project-a/src/favicon.ico"],
         "styles": ["apps/project-a/src/styles.less"],
         "scripts": [],
         "webpackConfig": "@nrwl/react/plugins/webpack"

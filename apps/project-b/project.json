@@ -1,37 +1,60 @@
 {
   "root": "apps/project-b",
-  "sourceRoot": "apps/project-b",
+  "sourceRoot": "apps/project-b/src",
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/next:build",
+      "executor": "@nrwl/web:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "root": "apps/project-b",
-        "outputPath": "dist/apps/project-b"
+        "compiler": "babel",
+        "outputPath": "dist/apps/project-b",
+        "index": "apps/project-b/src/index.html",
+        "baseHref": "/project-b/",
+        "main": "apps/project-b/src/main.tsx",
+        "polyfills": "apps/project-b/src/polyfills.ts",
+        "tsConfig": "apps/project-b/tsconfig.app.json",
+        "assets": ["apps/project-b/src/favicon.ico"],
+        "styles": ["apps/project-b/src/styles.less"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
       },
       "configurations": {
-        "production": {}
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/project-b/src/environments/environment.ts",
+              "with": "apps/project-b/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": true,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
       }
     },
     "serve": {
-      "executor": "@nrwl/next:server",
+      "executor": "@nrwl/web:dev-server",
       "options": {
         "buildTarget": "project-b:build",
-        "dev": true
+        "hmr": true
       },
       "configurations": {
         "production": {
           "buildTarget": "project-b:build:production",
-          "dev": false
+          "hmr": false
         }
       }
     },
-    "export": {
-      "executor": "@nrwl/next:export",
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "buildTarget": "project-b:build:production"
+        "lintFilePatterns": ["apps/project-b/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
@@ -40,13 +63,6 @@
       "options": {
         "jestConfig": "apps/project-b/jest.config.js",
         "passWithNoTests": true
-      }
-    },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["apps/project-b/**/*.{ts,tsx,js,jsx}"]
       }
     }
   },
