@@ -1,6 +1,6 @@
 const SentryCli = require('@sentry/cli');
 
-const { resolve, parseArgs, execSync } = require('./utils');
+const { resolve, parseArgs } = require('./utils');
 const configPath = resolve('../node_modules/.cache/.release.json');
 const buildInfo = require(configPath);
 
@@ -26,7 +26,6 @@ async function main() {
       urlPrefix: `~${project}/`,
     });
 
-    execSync(`rm -rf ./dist/${env}/apps/${project}/**/**.map`);
     console.log('Uploaded successfully');
     process.exitCode = 0;
   } catch (e) {

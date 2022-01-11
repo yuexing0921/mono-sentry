@@ -1,5 +1,4 @@
 const path = require('path');
-const { execSync } = require('child_process');
 
 exports.resolve = function (p) {
   return path.resolve(__dirname, p);
@@ -21,18 +20,4 @@ exports.parseArgs = function () {
     }
   }
   return config;
-};
-
-exports.execSync = async function (command) {
-  try {
-    const spawn = await execSync(command, { stdio: 'inherit' });
-    if (spawn && spawn.stderr && spawn.status !== 0) {
-      console.log(spawn.stderr);
-      process.exitCode = 1;
-    }
-  } catch (e) {
-    console.error(`Error when executing ${command} `);
-    console.log(e);
-    process.exitCode = 1;
-  }
 };
