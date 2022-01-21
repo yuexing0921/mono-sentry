@@ -5,16 +5,18 @@ const configPath = resolve('../node_modules/.cache/.release.json');
 
 // 初始化releaseInfo信息
 function initReleaseInfo(projectList) {
+  let config = {};
   if (fe.existsSync(configPath)) {
-    return require(configPath);
-  } else {
-    const len = projectList.length;
-    const config = {};
-    for (let i = 0; i < len; i++) {
+    config = require(configPath);
+  }
+  const len = projectList.length;
+
+  for (let i = 0; i < len; i++) {
+    if (!config[projectList[i]]) {
       config[projectList[i]] = '';
     }
-    return config;
   }
+  return config;
 }
 
 // node script/genBuildRelease.js -p xxx
@@ -25,11 +27,13 @@ async function main() {
   // check
   if (!project) {
     console.error('Please enter node script/genBuildRelease.js  -p xxx');
-    return process.exit(0);
+    process.exitCode = 1;
+    return;
   }
   if (!list.find((k) => k === project)) {
     console.error('No project named ' + project + ' was found');
-    return process.exit(0);
+    process.exitCode = 1;
+    return;
   }
 
   const releaseInfo = initReleaseInfo(list);
